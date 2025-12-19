@@ -201,19 +201,6 @@ with col2:
     if st.button("확인", key='check_q3'):
         if ans3 == lcm_val:
             st.success("✅ 정답입니다! 만난 연잎 번호가 최소공배수입니다.")
-            # 두 수의 공배수 리스트 생성 (최소공배수부터 5개만)
-            a, b = small, big
-            lcm_list = [lcm_val * i for i in range(1, 6)]
-            lcm_list_str = ", ".join(str(x) for x in lcm_list)
-            st.markdown(f"""
-<div style='background:#f7faff;border-left:4px solid #3399ff;padding:12px;border-radius:6px'>
-  <h3 style='margin:0 0 8px 0;'>정리하기</h3>
-  <p style='margin:4px 0;'>두 수의 공통인 배수를 <span style='color:#0077cc;font-weight:bold;'>공배수</span>라고 합니다.</p>
-  <p style='margin:4px 0;'>두 수의 공배수 중에서 가장 작은 수를 <span style='color:#0077cc;font-weight:bold;'>최소공배수</span>라고 합니다.</p>
-  <p style='margin:8px 0 0 0;'><strong>{a}와 {b}의 공배수는 {lcm_list_str}, ... 입니다.</strong></p>
-  <p style='margin:4px 0 0 0;'><strong>{a}와 {b}의 최소공배수는 {lcm_val}입니다.</strong></p>
-</div>
-""", unsafe_allow_html=True)
         else:
             st.error("❌ 틀렸습니다. 다시 생각해보세요.")
             st.warning("힌트: 각 개구리가 밟은 연잎 번호를 차례대로 적어보면 공통으로 나오는 첫 번째 숫자가 있습니다.")
@@ -221,6 +208,61 @@ with col3:
     if st.button("정답", key="answer3"):
         st.info(f"정답: {lcm_val}")
 with col4:
-    if st.button("힌트", key="hint3"):
-        st.warning("힌트: 각 개구리가 밟은 연잎 번호를 차례대로 적어보면 공통으로 나오는 첫 번째 숫자가 있습니다.")
+        if st.button("힌트", key="hint3"):
+                st.warning("힌트: 각 개구리가 밟은 연잎 번호를 차례대로 적어보면 공통으로 나오는 첫 번째 숫자가 있습니다.")
+
+
+# 큰 정리하기 버튼 (HTML/CSS)
+
+# 큰 정리하기 버튼 (CSS 적용, st.button 사용)
+st.markdown("""
+<style>
+.big-summary-btn {
+    display: block;
+    width: 100%;
+    max-width: 480px;
+    margin: 24px auto 12px auto;
+    padding: 22px 0;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(90deg,#3399ff 60%,#66ccff 100%);
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(51,153,255,0.12);
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.2s;
+}
+.big-summary-btn:hover {
+    background: linear-gradient(90deg,#66ccff 60%,#3399ff 100%);
+}
+</style>
+""", unsafe_allow_html=True)
+
+show_summary = st.button("정리하기", key="show_summary")
+if show_summary:
+        lcm_list = [lcm_val * i for i in range(1, 6)]
+        lcm_list_str = ", ".join(str(x) for x in lcm_list)
+        st.markdown(f"""
+        <div style='background:#eaf6ff;border-left:6px solid #3399ff;padding:16px 18px 14px 18px;border-radius:8px'>
+            <h3 style='margin:0 0 12px 0;color:#3399ff;'>정리하기</h3>
+            <ul style='margin:0 0 10px 0;padding-left:18px;'>
+                <li style='margin-bottom:6px;'>
+                    <span style='color:#0077cc;font-weight:bold;'>공배수</span>란 두 수 모두로 나누어 떨어지는 수입니다.
+                </li>
+                <li style='margin-bottom:6px;'>
+                    <span style='color:#0077cc;font-weight:bold;'>최소공배수</span>란 두 수의 공배수 중 가장 작은 수입니다.
+                </li>
+            </ul>
+            <div style='background:#fffbe6;padding:10px 12px;border-radius:6px;margin-bottom:8px;'>
+                <strong>예시:</strong> <br>
+                <span style='color:#d35400;font-weight:bold;'>{small}</span>와 <span style='color:#2980b9;font-weight:bold;'>{big}</span>의 공배수 → <span style='color:#16a085;'>{lcm_list_str}, ...</span><br>
+                <span style='color:#0077cc;'>최소공배수</span> → <span style='color:#e74c3c;font-weight:bold;'>{lcm_val}</span>
+            </div>
+            <div style='font-size:15px;color:#555;'>
+                <span style='background:#d6f5d6;padding:2px 8px;border-radius:4px;'>공배수: 여러 개, 최소공배수: 단 하나!</span>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
