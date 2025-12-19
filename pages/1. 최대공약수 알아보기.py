@@ -9,9 +9,9 @@ st.title("🍎 사과로 배우는 최대공약수")
 
 # 세션 상태 초기화
 if 'num1' not in st.session_state:
-    st.session_state.num1 = 12
+    st.session_state.num1 = 8
 if 'num2' not in st.session_state:
-    st.session_state.num2 = 18
+    st.session_state.num2 = 12
 if 'submitted' not in st.session_state:
     st.session_state.submitted = False
 if 'answer1' not in st.session_state:
@@ -34,9 +34,9 @@ st.write("두 개의 숫자를 입력하고, 사과를 몇 개씩 나눌 수 있
 # 숫자 입력 섹션
 col1, col2, col3 = st.columns(3)
 with col1:
-    num1 = st.number_input("첫 번째 숫자", min_value=1, max_value=100, value=12, key="input1")
+    num1 = st.number_input("첫 번째 숫자", min_value=1, max_value=100, value=8, key="input1")
 with col2:
-    num2 = st.number_input("두 번째 숫자", min_value=1, max_value=100, value=18, key="input2")
+    num2 = st.number_input("두 번째 숫자", min_value=1, max_value=100, value=12, key="input2")
 with col3:
     st.write("")
     st.write("")
@@ -153,7 +153,7 @@ if st.session_state.submitted:
     st.subheader("📚 학습 문제")
     
     # 문제 1: 공약수 찾기
-    st.write("**문제 1️⃣: 두 사과를 공통으로 묶을 수 있는 수는 뭔가요?**")
+    st.write("**문제 1️⃣: 나머지가 남지 않게 공통으로 묶을 수 있는 수를 모두 쓰세요**")
     st.write(f"({num1}과 {num2}를 모두 나누어떨어뜨릴 수 있는 수를 모두 찾아보세요)")
     
     # 공약수 찾기
@@ -208,7 +208,7 @@ if st.session_state.submitted:
     # 힌트 표시 (점진적으로 더 많은 정보를 제공)
     if st.session_state.q1_hints_shown >= 1:
         divs1_str = ",".join(str(x) for x in divisors1)
-        st.info(f"💡 힌트 1: 먼저 각 수({num1}, {num2})의 약수를 모두 적어보세요. 예: {num1}의 약수는 {divs1_str}입니다.")
+        st.info(f"💡 힌트 1: 먼저 각 수({num1}, {num2})의 약수를 모두 생각해보세요. 예: {num1}의 약수는 {divs1_str}입니다.")
     if st.session_state.q1_hints_shown >= 2:
         divs2_str = ",".join(str(x) for x in divisors2)
         st.info(f"💡 힌트 2: {num2}의 약수는 {divs2_str}입니다. 두 목록에서 공통으로 있는 수를 골라보세요.")
@@ -218,7 +218,7 @@ if st.session_state.submitted:
     st.write("")
     
     # 문제 2: 최대공약수 찾기
-    st.write("**문제 2️⃣: 그럼 이 숫자 중에 가장 큰 숫자가 무엇인가요?**")
+    st.write("**문제 2️⃣: 공통된 숫자 중에서 가장 큰 수는 무엇인가요?**")
     # '(이것이 ...의 최대공약수입니다)' 문구는 정답 확인 후 맞으면 보여줍니다.
     
     col1, col2, col3, col4 = st.columns([3, 0.5, 0.5, 0.8])
