@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import math
 
 st.set_page_config(page_title="최소공배수 알아보기 (개구리 점프)", layout="wide")
-st.title("🐸 개구리 점프로 배우는 최소공배수 (LCM)")
+st.title("🐸 개구리 점프로 배우는 최소공배수")
 st.write("빨강 개구리와 파랑 개구리가 있어요. 각 개구리가 연잎을 몇 칸씩 점프할지 설정해 보세요!")
 
 # 입력

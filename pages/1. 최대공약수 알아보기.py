@@ -227,6 +227,7 @@ if st.session_state.submitted:
             "정답을 입력하세요",
             min_value=1,
             max_value=min_divisor,
+            value=None,
             key="question2"
         )
     
