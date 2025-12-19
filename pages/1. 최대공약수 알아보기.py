@@ -153,8 +153,8 @@ if st.session_state.submitted:
     st.subheader("📚 학습 문제")
     
     # 문제 1: 공약수 찾기
-    st.write("**문제 1️⃣: 나머지가 남지 않게 공통으로 묶을 수 있는 수를 모두 쓰세요**")
-    st.write(f"({num1}과 {num2}를 모두 나누어떨어뜨릴 수 있는 수를 모두 찾아보세요)")
+    st.write(f"**문제 1️⃣: 나머지가 생기지 않게 {num1}과 {num2}를 나누어 떨어뜨릴 수 있는 수를 모두 써보세요**")
+        # ...existing code...
     
     # 공약수 찾기
     def find_divisors(n):
@@ -207,8 +207,8 @@ if st.session_state.submitted:
 
     # 힌트 표시 (점진적으로 더 많은 정보를 제공)
     if st.session_state.q1_hints_shown >= 1:
-        divs1_str = ",".join(str(x) for x in divisors1)
-        st.info(f"💡 힌트 1: 먼저 각 수({num1}, {num2})의 약수를 모두 생각해보세요. 예: {num1}의 약수는 {divs1_str}입니다.")
+        divs2_str = ",".join(str(x) for x in divisors2)
+        st.info(f"💡 힌트 1: {num2}의 약수는 {divs2_str}입니다. 두 목록에서 공통으로 있는 수를 골라보세요.")
     if st.session_state.q1_hints_shown >= 2:
         divs2_str = ",".join(str(x) for x in divisors2)
         st.info(f"💡 힌트 2: {num2}의 약수는 {divs2_str}입니다. 두 목록에서 공통으로 있는 수를 골라보세요.")
@@ -218,7 +218,7 @@ if st.session_state.submitted:
     st.write("")
     
     # 문제 2: 최대공약수 찾기
-    st.write("**문제 2️⃣: 공통된 숫자 중에서 가장 큰 수는 무엇인가요?**")
+    st.write("**문제 2️⃣: 앞서 쓴 수 중에서 가장 큰 수는 무엇인가요?**")
     # '(이것이 ...의 최대공약수입니다)' 문구는 정답 확인 후 맞으면 보여줍니다.
     
     col1, col2, col3, col4 = st.columns([3, 0.5, 0.5, 0.8])

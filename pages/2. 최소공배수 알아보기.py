@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import math
 
 st.set_page_config(page_title="최소공배수 알아보기 (개구리 점프)", layout="wide")
-st.title("🐸 개구리 점프로 배우는 최소공배수")
+st.title("🐸 개구리 점프로 배우는 최소공배수 (LCM)")
 st.write("빨강 개구리와 파랑 개구리가 있어요. 각 개구리가 연잎을 몇 칸씩 점프할지 설정해 보세요!")
 
 # 입력
@@ -29,7 +29,6 @@ if start:
     st.session_state.blue_shown = []
 
 if not st.session_state.lcm_started:
-    st.info("숫자 2개를 입력한 뒤 오른쪽의 '🚀 시작' 버튼을 눌러보세요")
     st.stop()
 
 # compute lcm
@@ -48,8 +47,15 @@ red_positions = list(range(small, lcm_val + 1, small))
 blue_positions = list(range(big, lcm_val + 1, big))
 meeting = lcm_val
 
+# 문제 정답 비교용: 앞에서부터 5개만 사용
+def get_first_n_positions(step, n):
+    return [step * i for i in range(1, n + 1)]
+
+red_positions_5 = get_first_n_positions(small, 5)
+blue_positions_5 = get_first_n_positions(big, 5)
+
 # Visualization
-st.subheader("점프 버튼을 눌러보며 개구리가 몇 칸씩 점프하는지 확인해보세요!")
+st.subheader("점프 버튼을 여러 번 눌러보며 개구리가 몇 칸씩 점프하는지 확인해보세요!")
 
 # prepare figure size: always show 20 pads per row
 max_pad = 20
@@ -126,7 +132,6 @@ st.markdown("---")
 # 문제 섹션
 st.subheader("❓ 문제")
 
-
 # Helper to parse list input
 def parse_list_input(text):
     text = text.strip()
@@ -141,107 +146,81 @@ def parse_list_input(text):
 red_jump = small
 # Problem 1
 st.write(f"1) 빨강 개구리({red_jump}칸씩 점프)는 몇 번째 연잎만 밟았나요? (앞에서부터 5개만, 쉼표로 구분해서 적어보세요)")
-col1, col_btn = st.columns([3,0.7])
+col1, col2, col3, col4 = st.columns([3, 0.7, 0.7, 1])
 with col1:
     ans1 = st.text_input("(예: 1,2,3,4,5)", key='lcm_q1')
-with col_btn:
-    btn1, btn2 = st.columns([1,0.95])
-    with btn1:
-        if st.button("확인", key='check_q1'):
-            user = parse_list_input(ans1)
-            answer = [small * i for i in range(1, 6)]
-            if user is None:
-                st.error("입력 형식이 잘못되었습니다. 쉼표로 구분된 숫자를 입력하세요.")
-            elif len(user) != 5:
-                st.error("다시 생각해보세요. 정답은 앞에서부터 5개만 써 주세요.")
-            elif user == answer:
+with col2:
+    if st.button("확인", key='check_q1'):
+        user = parse_list_input(ans1)
+        if user is None:
+            st.error("입력 형식이 잘못되었습니다. 쉼표로 구분된 숫자를 입력하세요.")
+        else:
+            if user == red_positions_5:
                 st.success("✅ 정답입니다! 빨강 개구리가 밟은 연잎 번호가 맞습니다.")
-                st.info(f"빨강 개구리가 밟은 연잎: {answer}")
+                st.info(f"빨강 개구리가 밟은 연잎: {red_positions_5}")
             else:
                 st.error("❌ 틀렸습니다. 다시 확인해보세요.")
                 st.warning("힌트: 각 개구리가 밟은 연잎 번호를 순서대로 확인해보세요")
-    with btn2:
-        if st.button("정답", key='answer_q1'):
-            st.info(f"정답: {[small * i for i in range(1, 6)]}")
+with col3:
+    if st.button("정답", key="answer1"):
+        st.info(f"정답: {red_positions_5}")
+with col4:
+    if st.button("힌트", key="hint1"):
+        st.warning("힌트: 각 개구리가 밟은 연잎 번호를 순서대로 확인해보세요")
 
 blue_jump = big
-# Problem 2
-st.write(f"2) 파랑 개구리({blue_jump}칸씩 점프)는 몇 번째 연잎만 밟았나요? (앞에서부터 5개만, 쉼표로 구분)")
-col1, col_btn = st.columns([3,0.7])
+st.write(f"2) 파랑 개구리({blue_jump}칸씩 점프)는 몇 번째 연잎만 밟았나요? (앞에서부터 5개만, 쉼표로 구분해서 적어보세요)")
+col1, col2, col3, col4 = st.columns([3, 0.7, 0.7, 1])
 with col1:
     ans2 = st.text_input("(예: 1,2,3,4,5)", key='lcm_q2')
-with col_btn:
-    btn1, btn2 = st.columns([1,0.95])
-    with btn1:
-        if st.button("확인", key='check_q2'):
-            user = parse_list_input(ans2)
-            answer = [big * i for i in range(1, 6)]
-            if user is None:
-                st.error("입력 형식이 잘못되었습니다. 쉼표로 구분된 숫자를 입력하세요.")
-            elif len(user) != 5:
-                st.error("다시 생각해보세요. 정답은 앞에서부터 5개만 써 주세요.")
-            elif user == answer:
+with col2:
+    if st.button("확인", key='check_q2'):
+        user = parse_list_input(ans2)
+        if user is None:
+            st.error("입력 형식이 잘못되었습니다. 쉼표로 구분된 숫자를 입력하세요.")
+        else:
+            if user == blue_positions_5:
                 st.success("✅ 정답입니다! 파랑 개구리가 밟은 연잎 번호가 맞습니다.")
-                st.info(f"파랑 개구리가 밟은 연잎: {answer}")
+                st.info(f"파랑 개구리가 밟은 연잎: {blue_positions_5}")
             else:
                 st.error("❌ 틀렸습니다. 다시 확인해보세요.")
                 st.warning("힌트: 각 개구리가 밟은 연잎 번호를 순서대로 확인해보세요")
-    with btn2:
-        if st.button("정답", key='answer_q2'):
-            st.info(f"정답: {[big * i for i in range(1, 6)]}")
+with col3:
+    if st.button("정답", key="answer2"):
+        st.info(f"정답: {blue_positions_5}")
+with col4:
+    if st.button("힌트", key="hint2"):
+        st.warning("힌트: 각 개구리가 밟은 연잎 번호를 순서대로 확인해보세요")
 
 # Problem 3
-st.write("3) 빨강 개구리와 파랑 개구리는 몇 번째 연잎에서 만났나요? (숫자만 입력)")
-col1, col_btn = st.columns([3,0.7])
+st.write("3) 빨강 개구리와 파랑 개구리는 몇 번째 연잎에서 만났나요?")
+col1, col2, col3, col4 = st.columns([3, 0.7, 0.7, 1])
 with col1:
-    ans3 = st.text_input("(예: 1)", key='lcm_q3_input')
-with col_btn:
-    btn1, btn2 = st.columns([1,0.95])
-    with btn1:
-        if st.button("확인", key='check_q3'):
-            try:
-                user_val = int(ans3.strip())
-            except:
-                st.error("숫자만 입력해 주세요.")
-                user_val = None
-            if user_val is not None:
-                st.session_state.show_summary = True
-                if user_val == lcm_val:
-                    st.success("✅ 정답입니다!")
-                else:
-                    st.error("❌ 틀렸습니다. 다시 생각해보세요.")
-                    st.warning("힌트: 각 개구리가 밟은 연잎 번호를 차례대로 적어보면 공통으로 나오는 첫 번째 숫자가 있습니다.")
-    with btn2:
-        if st.button("정답", key='answer_q3'):
-            st.info(f"정답: {lcm_val}")
-
-
-
-
-# 마무리 정리: 문제 3번 확인 버튼을 눌렀을 때만 표시
-if st.session_state.get('show_summary', False):
-    def get_gcd(x, y):
-        while y:
-            x, y = y, x % y
-        return x
-
-    def get_common_divisors(x, y):
-        return [d for d in range(1, min(x, y)+1) if x%d==0 and y%d==0]
-
-    common_divs = get_common_divisors(a, b)
-    gcd_val = get_gcd(a, b)
-
-    st.markdown("---")
-    st.markdown(
-        f"""
-        <div style='background-color:#ffdddd; padding: 18px; border-radius: 10px; margin-bottom: 16px;'>
-        <span style='font-size:1.2em; font-weight:bold;'>정리</span><br><br>
-        두 수의 공통인 <span style='color:red'><b>공배수</b></span>를 두 수의 <span style='color:red'><b>공배수</b></span>라고 합니다.<br>
-        두 수의 공배수 중에서 가장 작은 수를 두 수의 <span style='color:red'><b>최소공배수</b></span>라고 합니다.<br><br>
-        {a}와 {b}의 공약수는 {', '.join(str(x) for x in common_divs)}이고 {a}와 {b}의 최대공약수는 {gcd_val}입니다.
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
+    ans3 = st.number_input("", min_value=1, max_value=100, value=None, key='lcm_q3')
+with col2:
+    if st.button("확인", key='check_q3'):
+        if ans3 == lcm_val:
+            st.success("✅ 정답입니다! 만난 연잎 번호가 최소공배수입니다.")
+            # 두 수의 공배수 리스트 생성 (최소공배수부터 5개만)
+            a, b = small, big
+            lcm_list = [lcm_val * i for i in range(1, 6)]
+            lcm_list_str = ", ".join(str(x) for x in lcm_list)
+            st.markdown(f"""
+<div style='background:#f7faff;border-left:4px solid #3399ff;padding:12px;border-radius:6px'>
+  <h3 style='margin:0 0 8px 0;'>정리하기</h3>
+  <p style='margin:4px 0;'>두 수의 공통인 배수를 <span style='color:#0077cc;font-weight:bold;'>공배수</span>라고 합니다.</p>
+  <p style='margin:4px 0;'>두 수의 공배수 중에서 가장 작은 수를 <span style='color:#0077cc;font-weight:bold;'>최소공배수</span>라고 합니다.</p>
+  <p style='margin:8px 0 0 0;'><strong>{a}와 {b}의 공배수는 {lcm_list_str}, ... 입니다.</strong></p>
+  <p style='margin:4px 0 0 0;'><strong>{a}와 {b}의 최소공배수는 {lcm_val}입니다.</strong></p>
+</div>
+""", unsafe_allow_html=True)
+        else:
+            st.error("❌ 틀렸습니다. 다시 생각해보세요.")
+            st.warning("힌트: 각 개구리가 밟은 연잎 번호를 차례대로 적어보면 공통으로 나오는 첫 번째 숫자가 있습니다.")
+with col3:
+    if st.button("정답", key="answer3"):
+        st.info(f"정답: {lcm_val}")
+with col4:
+    if st.button("힌트", key="hint3"):
+        st.warning("힌트: 각 개구리가 밟은 연잎 번호를 차례대로 적어보면 공통으로 나오는 첫 번째 숫자가 있습니다.")
 
