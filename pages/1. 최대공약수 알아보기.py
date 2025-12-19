@@ -24,8 +24,12 @@ if 'q2_hints_shown' not in st.session_state:
     st.session_state.q2_hints_shown = 0
 if 'q2_revealed' not in st.session_state:
     st.session_state.q2_revealed = False
+if 'summary_shown' not in st.session_state:
+    st.session_state.summary_shown = False
+if 'summary_html' not in st.session_state:
+    st.session_state.summary_html = ""
 
-st.write("두 개의 숫자를 입력하면 사과로 어떻게 나누어지는지 확인해보세요!")
+st.write("두 개의 숫자를 입력하고, 사과를 몇 개씩 나눌 수 있는지 확인해봅시다!")
 
 # 숫자 입력 섹션
 col1, col2, col3 = st.columns(3)
@@ -44,18 +48,21 @@ with col3:
         st.session_state.q1_hints_shown = 0
         st.session_state.q2_hints_shown = 0
         st.session_state.q2_revealed = False
+        # reset summary display
+        st.session_state.summary_shown = False
+        st.session_state.summary_html = ""
 
 if st.session_state.submitted:
     num1 = st.session_state.num1
     num2 = st.session_state.num2
     
     st.divider()
-    st.subheader("사과를 똑같은 개수로 몇개씩 묶을 수 있을까요?")
+    st.subheader("사과를 똑같은 개수로 나눌 때, 사과가 남지 않도록 하려면 몇 개씩 묶어야 할까요?")
     
     # 슬라이더
     min_divisor = min(num1, num2)
     divisor = st.slider(
-        "나누는 묶음 수를 선택하세요",
+        "슬라이더를 움직이며 어떻게 나뉘어지는지 확인해보세요",
         min_value=1,
         max_value=min_divisor,
         value=1,
@@ -226,10 +233,24 @@ if st.session_state.submitted:
     with col2:
         if st.button("확인", key="check2"):
             if user_answer2 == gcd_value:
-                # 정답 메시지와 설명을 같은 초록 박스 안에 표시합니다.
-                st.success(f"✅ 정답입니다!\n(이것이 {num1}과 {num2}의 최대공약수입니다)")
+                # 정답 메시지를 표시합니다.
+                st.success("✅ 정답입니다!")
                 st.session_state.q2_hints_shown = 0
                 st.session_state.q2_revealed = True
+
+                # 정리하기 HTML을 준비하고, 전체 너비로 보여주도록 플래그를 켭니다.
+                common_str = ", ".join(str(x) for x in common_divisors)
+                html = f''' 
+                <div style="background:#fff7f7;border-left:4px solid #ff9999;padding:12px;border-radius:6px">
+                  <h3 style="margin:0 0 8px 0;">정리하기</h3>
+                  <p style="margin:4px 0;">두 수의 공통인 약수를 <span style="color:red;font-weight:bold;">공약수</span>라고 합니다.</p>
+                  <p style="margin:4px 0;">두 수의 공약수 중에서 가장 큰 수를 <span style="color:red;font-weight:bold;">최대공약수</span>라고 합니다.</p>
+                  <p style="margin:8px 0 0 0;"><strong>{num1}과 {num2}의 공약수는 {common_str}입니다.</strong></p>
+                  <p style="margin:4px 0 0 0;"><strong>{num1}과 {num2}의 최대공약수는 {gcd_value}입니다.</strong></p>
+                </div>
+                '''
+                st.session_state.summary_html = html
+                st.session_state.summary_shown = True
             else:
                 st.error(f"❌ 다시 생각해보세요.")
                 st.session_state.q2_hints_shown = min(2, st.session_state.q2_hints_shown + 1)
@@ -248,3 +269,8 @@ if st.session_state.submitted:
         st.info("💡 힌트 1: 최대공약수는 두 수의 공약수 중 가장 큰 수입니다. 문제1의 공약수를 확인해보세요.")
     if st.session_state.q2_hints_shown >= 2:
         st.info(f"💡 힌트 2: 문제1의 공약수: {common_divisors} -> 이 중 가장 큰 수가 최대공약수입니다.")
+
+    # 정리하기를 전체 너비로 표시 (문제가 들어있는 열의 폭이 좁아 글자가 세로로 보이던 문제 해결)
+    if st.session_state.get('summary_shown', False):
+        st.divider()
+        st.markdown(st.session_state.summary_html, unsafe_allow_html=True)
