@@ -153,7 +153,7 @@ if st.session_state.submitted:
     st.subheader("📚 학습 문제")
     
     # 문제 1: 공약수 찾기
-    st.write(f"**문제 1️⃣: 나머지가 생기지 않게 {num1}과 {num2}를 나누어 떨어뜨릴 수 있는 수를 모두 써보세요**")
+    st.write(f"**문제 1️⃣: 나머지가 생기지 않도록 {num1}와 {num2}를 나누어 떨어뜨리는 수를 모두 써보세요**")
         # ...existing code...
     
     # 공약수 찾기
@@ -207,13 +207,13 @@ if st.session_state.submitted:
 
     # 힌트 표시 (점진적으로 더 많은 정보를 제공)
     if st.session_state.q1_hints_shown >= 1:
-        divs2_str = ",".join(str(x) for x in divisors2)
-        st.info(f"💡 힌트 1: {num2}의 약수는 {divs2_str}입니다. 두 목록에서 공통으로 있는 수를 골라보세요.")
+        divs1_str = ",".join(str(x) for x in divisors1)
+        st.info(f"💡 힌트 1: {num1}의 약수는 {divs1_str}입니다.")
     if st.session_state.q1_hints_shown >= 2:
         divs2_str = ",".join(str(x) for x in divisors2)
-        st.info(f"💡 힌트 2: {num2}의 약수는 {divs2_str}입니다. 두 목록에서 공통으로 있는 수를 골라보세요.")
+        st.info(f"💡 힌트 2: {num2}의 약수는 {divs2_str}입니다.")
     if st.session_state.q1_hints_shown >= 3:
-        st.info(f"💡 힌트 3: 공통 약수 목록을 확인해보세요: {common_divisors}")
+        st.info(f"💡 힌트 3: 이 중에서 공통된 수를 찾아보세요.")
     
     st.write("")
     
