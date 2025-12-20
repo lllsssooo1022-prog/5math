@@ -106,7 +106,11 @@ else:
 	# 3단계: 최소공배수 쓰기
 	color3 = '#c8e6c9' if problem_idx == 1 else '#fff9c4'
 	st.markdown(f'<div style="background-color:{color3};padding:8px 12px;border-radius:6px;font-weight:bold;font-size:1.1em;display:inline-block;">3단계: {a}와 {b}의 최소공배수 쓰기</div>', unsafe_allow_html=True)
-	user_lcm = st.number_input("최소공배수를 입력하세요:", min_value=1, step=1, key=f"lcm_{problem_idx}", value=None)
+	user_lcm_str = st.text_input("최소공배수를 입력하세요:", key=f"lcm_{problem_idx}")
+	try:
+		user_lcm = int(user_lcm_str) if user_lcm_str.strip() else None
+	except:
+		user_lcm = None
 	answer = lcm(a, b)
 	col3_1, col3_2 = st.columns([1,1])
 	with col3_1:
