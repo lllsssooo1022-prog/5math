@@ -156,8 +156,7 @@ with col2:
             st.error("입력 형식이 잘못되었습니다. 쉼표로 구분된 숫자를 입력하세요.")
         else:
             if user == red_positions_5:
-                st.success("✅ 정답입니다! 빨간 개구리가 밟은 연잎 번호가 맞습니다.")
-                st.info(f"빨간 개구리가 밟은 연잎: {red_positions_5}")
+                st.success("✅ 정답입니다!")
             else:
                 st.error("❌ 틀렸습니다. 다시 확인해보세요.")
                 st.warning("힌트: 각 개구리가 밟은 연잎 번호를 순서대로 확인해보세요")
@@ -180,8 +179,7 @@ with col2:
             st.error("입력 형식이 잘못되었습니다. 쉼표로 구분된 숫자를 입력하세요.")
         else:
             if user == blue_positions_5:
-                st.success("✅ 정답입니다! 파란 개구리가 밟은 연잎 번호가 맞습니다.")
-                st.info(f"파란 개구리가 밟은 연잎: {blue_positions_5}")
+                st.success("✅ 정답입니다!")
             else:
                 st.error("❌ 틀렸습니다. 다시 확인해보세요.")
                 st.warning("힌트: 각 개구리가 밟은 연잎 번호를 순서대로 확인해보세요")
@@ -193,7 +191,7 @@ with col4:
         st.warning("힌트: 각 개구리가 밟은 연잎 번호를 순서대로 확인해보세요")
 
 # Problem 3
-st.write("3) <span style='font-weight:bold;'>빨간 개구리</span>와 <span style='font-weight:bold;'>파란 개구리</span>는 몇 번째 연잎에서 만났나요?", unsafe_allow_html=True)
+st.write("3) <span style='font-weight:bold;'>빨간 개구리</span>와 <span style='font-weight:bold;'>파란 개구리</span>는 몇 번째 연잎에서 <span style='background: #fffbe6; color: #d35400; font-weight: bold; padding: 2px 6px; border-radius: 4px;'>처음으로</span> 만났나요?", unsafe_allow_html=True)
 col1, col2, col3, col4 = st.columns([3, 0.7, 0.7, 1])
 with col1:
     ans3 = st.number_input("", min_value=1, max_value=100, value=None, key='lcm_q3')
