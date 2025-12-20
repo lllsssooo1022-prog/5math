@@ -44,7 +44,7 @@ else:
 
 	# 1단계: 두 수의 배수 10개씩 쓰기 (제목 한 번만)
 	color1 = '#c8e6c9' if problem_idx == 1 else '#fff9c4'
-	st.markdown(f'<div style="background-color:{color1};padding:8px 12px;border-radius:6px;font-weight:bold;font-size:1.1em;display:inline-block;">1단계: 두 수의 배수 10개씩 쓰기</div>', unsafe_allow_html=True)
+	st.markdown(f'<div style="background-color:{color1};padding:8px 12px;border-radius:6px;font-weight:bold;font-size:1.1em;display:inline-block;">1단계: {a}와 {b}의 배수 10개씩 쓰기</div>', unsafe_allow_html=True)
 
 	user_multiples_a = st.text_input(f"{a}의 배수 10개를 ,로 구분해서 입력하세요.", key=f"mul_a_{problem_idx}")
 	correct_a = multiples(a)
@@ -83,7 +83,7 @@ else:
 
 	# 2단계: 두 수의 공배수 쓰기
 	color2 = '#c8e6c9' if problem_idx == 1 else '#fff9c4'
-	st.markdown(f'<div style="background-color:{color2};padding:8px 12px;border-radius:6px;font-weight:bold;font-size:1.1em;display:inline-block;">2단계: 두 수의 공배수 쓰기</div>', unsafe_allow_html=True)
+	st.markdown(f'<div style="background-color:{color2};padding:8px 12px;border-radius:6px;font-weight:bold;font-size:1.1em;display:inline-block;">2단계: {a}와 {b}의 공배수 쓰기</div>', unsafe_allow_html=True)
 	st.markdown('<span style="font-size: 0.9em; color: #666;">(1단계에서 쓴 수 중에서 공통된 수만 골라 쓰세요)</span>', unsafe_allow_html=True)
 	user_common = st.text_input("공배수를 ,로 구분해서 입력하세요.", key=f"common_{problem_idx}")
 	common = sorted(list(set(multiples(a)) & set(multiples(b))))
@@ -105,7 +105,7 @@ else:
 
 	# 3단계: 최소공배수 쓰기
 	color3 = '#c8e6c9' if problem_idx == 1 else '#fff9c4'
-	st.markdown(f'<div style="background-color:{color3};padding:8px 12px;border-radius:6px;font-weight:bold;font-size:1.1em;display:inline-block;">3단계: 최소공배수 쓰기</div>', unsafe_allow_html=True)
+	st.markdown(f'<div style="background-color:{color3};padding:8px 12px;border-radius:6px;font-weight:bold;font-size:1.1em;display:inline-block;">3단계: {a}와 {b}의 최소공배수 쓰기</div>', unsafe_allow_html=True)
 	user_lcm = st.number_input("최소공배수를 입력하세요:", min_value=1, step=1, key=f"lcm_{problem_idx}")
 	answer = lcm(a, b)
 	col3_1, col3_2 = st.columns([1,1])
@@ -114,6 +114,7 @@ else:
 			if user_lcm == answer:
 				if problem_idx == len(problems) - 1:
 					st.success("정답입니다! 모든 문제를 다 풀었습니다. 수고하셨습니다!")
+					st.balloons()
 				else:
 					st.success("정답입니다! 다음 문제로 이동하세요.")
 					st.button("다음 문제", on_click=next_problem, key=f"next3_{problem_idx}")

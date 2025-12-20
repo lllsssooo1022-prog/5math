@@ -168,3 +168,4 @@ if gcd_input == answer and st.session_state.gcd_feedback == "정답입니다!":
 			   st.session_state.gcd_answer = False
 	else:
 		st.success("모든 문제를 완료했습니다! 수고하셨습니다.")
+		st.balloons()
