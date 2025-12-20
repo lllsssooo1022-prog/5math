@@ -5,7 +5,7 @@ from matplotlib.patches import Circle
 import numpy as np
 
 st.set_page_config(page_title="최대공약수 알아보기", layout="wide")
-st.title("🍎 사과로 배우는 최대공약수")
+st.title("🍎🍏 사과로 배우는 최대공약수")
 
 # 세션 상태 초기화
 if 'num1' not in st.session_state:
@@ -57,7 +57,8 @@ if st.session_state.submitted:
     num2 = st.session_state.num2
     
     st.divider()
-    st.subheader("사과를 똑같은 개수로 나눌 때, 사과가 남지 않도록 하려면 몇 개씩 묶어야 할까요?")
+    st.markdown("<span style='font-size:1.5em; font-weight:bold;'><span style='color:#FF3B3B;'>빨간 사과</span>와 <span style='color:#2ECC40;'>초록 사과</span>를 똑같은 개수로 나눌 때,</span>", unsafe_allow_html=True)
+    st.markdown("<span style='font-size:1.5em; font-weight:bold;'>사과가 남지 않도록 하려면 몇 개씩 묶어야 할까요?</span>", unsafe_allow_html=True)
     
     # 슬라이더
     min_divisor = min(num1, num2)
@@ -72,26 +73,22 @@ if st.session_state.submitted:
     st.divider()
     
     # 사과 시각화 함수
-    def draw_apples(total_pieces, divisor, title, max_slots=None):
+    def draw_apples(total_pieces, divisor, title, max_slots=None, apple_color="#FF6B6B", apple_edge="darkred"):
         fig, ax = plt.subplots(figsize=(10, 2))
-        
         # 사과 전체 그리기
         num_groups = total_pieces // divisor
         remainder = total_pieces % divisor
-        
         x_pos = 0
         y_pos = 0
         apple_radius = 0.35
         spacing = 0.15
-        
         # 그룹으로 나눈 사과 그리기
         for group_idx in range(num_groups):
             for piece_idx in range(divisor):
                 x = x_pos + (group_idx * (divisor + 1)) * (2 * apple_radius + spacing) + piece_idx * (2 * apple_radius + spacing)
                 circle = Circle((x, y_pos), apple_radius, 
-                              linewidth=2, edgecolor='darkred', facecolor='#FF6B6B')
+                              linewidth=2, edgecolor=apple_edge, facecolor=apple_color)
                 ax.add_patch(circle)
-        
         # 남은 사과 그리기 (회색)
         if remainder > 0:
             for piece_idx in range(remainder):
@@ -99,12 +96,10 @@ if st.session_state.submitted:
                 circle = Circle((x, y_pos), apple_radius, 
                               linewidth=2, edgecolor='gray', facecolor='#CCCCCC')
                 ax.add_patch(circle)
-        
         # 그룹 구분선 그리기
         for group_idx in range(1, num_groups + 1):
             x_line = group_idx * (divisor + 1) * (2 * apple_radius + spacing) - spacing/2
             ax.axvline(x=x_line, color='gray', linestyle='--', linewidth=1, alpha=0.5)
-        
         # x축 범위를 고정: max_slots가 주어지면 그 값을 사용하여 두 그림의 크기를 같게 만듭니다.
         if max_slots is None:
             xmax = x_pos + (num_groups * (divisor + 1) + remainder) * (2 * apple_radius + spacing)
@@ -115,7 +110,6 @@ if st.session_state.submitted:
         ax.set_aspect('equal')
         ax.axis('off')
         ax.set_title(f"{divisor}", fontsize=14, fontweight='bold', pad=20)
-        
         return fig
     
     # 두 개의 사과 시각화
@@ -132,13 +126,13 @@ if st.session_state.submitted:
     col1, col2 = st.columns(2)
 
     with col1:
-        fig1 = draw_apples(num1, divisor, "", max_slots=max_slots)
+        fig1 = draw_apples(num1, divisor, "", max_slots=max_slots, apple_color="#FF6B6B", apple_edge="darkred")
         st.pyplot(fig1)
         plt.close(fig1)
         st.write(f"<h3 style='text-align: center;'>{num1}</h3>", unsafe_allow_html=True)
 
     with col2:
-        fig2 = draw_apples(num2, divisor, "", max_slots=max_slots)
+        fig2 = draw_apples(num2, divisor, "", max_slots=max_slots, apple_color="#6BCB77", apple_edge="darkgreen")
         st.pyplot(fig2)
         plt.close(fig2)
         st.write(f"<h3 style='text-align: center;'>{num2}</h3>", unsafe_allow_html=True)
@@ -153,8 +147,10 @@ if st.session_state.submitted:
     st.subheader("📚 학습 문제")
     
     # 문제 1: 공약수 찾기
-    st.write(f"**문제 1️⃣: 나머지가 생기지 않도록 {num1}와 {num2}를 나누어 떨어뜨리는 수를 모두 써보세요**")
-        # ...existing code...
+    a = num1
+    b = num2
+    st.write(f"**문제 1️⃣: 나머지가 생기지 않도록 <span style='color:#FF3B3B;'>빨간 사과</span>({a})와 <span style='color:#2ECC40;'>초록 사과</span>({b})를 나누어 떨어뜨리는 수를 모두 써보세요.**", unsafe_allow_html=True)
+    # ...existing code...
     
     # 공약수 찾기
     def find_divisors(n):
@@ -224,7 +220,7 @@ if st.session_state.submitted:
     col1, col2, col3, col4 = st.columns([3, 0.5, 0.5, 0.8])
     with col1:
         user_answer2 = st.number_input(
-            "정답을 입력하세요",
+            " ",
             min_value=1,
             max_value=min_divisor,
             value=None,

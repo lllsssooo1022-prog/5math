@@ -4,18 +4,18 @@ import math
 
 st.set_page_config(page_title="최소공배수 알아보기 (개구리 점프)", layout="wide")
 st.title("🐸 개구리 점프로 배우는 최소공배수")
-st.write("빨강 개구리와 파랑 개구리가 있어요. 각 개구리가 연잎을 몇 칸씩 점프할지 설정해 보세요!")
+st.write("<span style='color:#e74c3c;font-weight:bold;'>빨간 개구리</span>와 <span style='color:#2986cc;font-weight:bold;'>파란 개구리</span>가 있어요. 각 개구리가 연잎을 몇 칸씩 점프할지 설정해 보세요!", unsafe_allow_html=True)
 
 # 입력
 col1, col2, col3 = st.columns([1,1,2])
 with col1:
-    a = st.number_input("빨강 개구리 점프 칸 수", min_value=1, max_value=10, value=3, step=1, key="lcm_a")
+    a = st.number_input("빨간 개구리 점프 칸 수", min_value=1, max_value=10, value=3, step=1, key="lcm_a")
 with col2:
-    b = st.number_input("파랑 개구리 점프 칸 수", min_value=1, max_value=10, value=4, step=1, key="lcm_b")
+    b = st.number_input("파란 개구리 점프 칸 수", min_value=1, max_value=10, value=4, step=1, key="lcm_b")
 with col3:
     start = st.button("🚀 시작")
 
-# 정렬: 빨강은 작은 수, 파랑은 큰 수 (같으면 동일)
+# 정렬: 빨간은 작은 수, 파란은 큰 수 (같으면 동일)
 small = min(a, b)
 big = max(a, b)
 
@@ -86,11 +86,11 @@ if 'blue_shown' not in st.session_state:
 # Controls: jump buttons and reset
 btn_col1, btn_col2, btn_col3 = st.columns([1,1,8])
 with btn_col1:
-    if st.button("🔴 빨강 점프"):
+    if st.button("🔴 빨간 점프"):
         nextp = (st.session_state.red_shown[-1] if st.session_state.red_shown else 0) + small
         st.session_state.red_shown.append(nextp)
 with btn_col2:
-    if st.button("🔵 파랑 점프"):
+    if st.button("🔵 파란 점프"):
         nextp = (st.session_state.blue_shown[-1] if st.session_state.blue_shown else 0) + big
         st.session_state.blue_shown.append(nextp)
 with btn_col3:
@@ -145,7 +145,7 @@ def parse_list_input(text):
 
 red_jump = small
 # Problem 1
-st.write(f"1) 빨강 개구리({red_jump}칸씩 점프)는 몇 번째 연잎만 밟았나요? (앞에서부터 5개만, 쉼표로 구분해서 적어보세요)")
+st.write(f"1) <span style='color:#e74c3c;font-weight:bold;'>빨간 개구리</span>({red_jump}칸씩 점프)는 몇 번째 연잎만 밟았나요? (앞에서부터 5개만, 쉼표로 구분해서 적어보세요)", unsafe_allow_html=True)
 col1, col2, col3, col4 = st.columns([3, 0.7, 0.7, 1])
 with col1:
     ans1 = st.text_input("(예: 1,2,3,4,5)", key='lcm_q1')
@@ -156,8 +156,8 @@ with col2:
             st.error("입력 형식이 잘못되었습니다. 쉼표로 구분된 숫자를 입력하세요.")
         else:
             if user == red_positions_5:
-                st.success("✅ 정답입니다! 빨강 개구리가 밟은 연잎 번호가 맞습니다.")
-                st.info(f"빨강 개구리가 밟은 연잎: {red_positions_5}")
+                st.success("✅ 정답입니다! 빨간 개구리가 밟은 연잎 번호가 맞습니다.")
+                st.info(f"빨간 개구리가 밟은 연잎: {red_positions_5}")
             else:
                 st.error("❌ 틀렸습니다. 다시 확인해보세요.")
                 st.warning("힌트: 각 개구리가 밟은 연잎 번호를 순서대로 확인해보세요")
@@ -169,7 +169,7 @@ with col4:
         st.warning("힌트: 각 개구리가 밟은 연잎 번호를 순서대로 확인해보세요")
 
 blue_jump = big
-st.write(f"2) 파랑 개구리({blue_jump}칸씩 점프)는 몇 번째 연잎만 밟았나요? (앞에서부터 5개만, 쉼표로 구분해서 적어보세요)")
+st.write(f"2) <span style='color:#2986cc;font-weight:bold;'>파란 개구리</span>({blue_jump}칸씩 점프)는 몇 번째 연잎만 밟았나요? (앞에서부터 5개만, 쉼표로 구분해서 적어보세요)", unsafe_allow_html=True)
 col1, col2, col3, col4 = st.columns([3, 0.7, 0.7, 1])
 with col1:
     ans2 = st.text_input("(예: 1,2,3,4,5)", key='lcm_q2')
@@ -180,8 +180,8 @@ with col2:
             st.error("입력 형식이 잘못되었습니다. 쉼표로 구분된 숫자를 입력하세요.")
         else:
             if user == blue_positions_5:
-                st.success("✅ 정답입니다! 파랑 개구리가 밟은 연잎 번호가 맞습니다.")
-                st.info(f"파랑 개구리가 밟은 연잎: {blue_positions_5}")
+                st.success("✅ 정답입니다! 파란 개구리가 밟은 연잎 번호가 맞습니다.")
+                st.info(f"파란 개구리가 밟은 연잎: {blue_positions_5}")
             else:
                 st.error("❌ 틀렸습니다. 다시 확인해보세요.")
                 st.warning("힌트: 각 개구리가 밟은 연잎 번호를 순서대로 확인해보세요")
@@ -193,14 +193,14 @@ with col4:
         st.warning("힌트: 각 개구리가 밟은 연잎 번호를 순서대로 확인해보세요")
 
 # Problem 3
-st.write("3) 빨강 개구리와 파랑 개구리는 몇 번째 연잎에서 만났나요?")
+st.write("3) <span style='font-weight:bold;'>빨간 개구리</span>와 <span style='font-weight:bold;'>파란 개구리</span>는 몇 번째 연잎에서 만났나요?", unsafe_allow_html=True)
 col1, col2, col3, col4 = st.columns([3, 0.7, 0.7, 1])
 with col1:
     ans3 = st.number_input("", min_value=1, max_value=100, value=None, key='lcm_q3')
 with col2:
     if st.button("확인", key='check_q3'):
         if ans3 == lcm_val:
-            st.success("✅ 정답입니다! 만난 연잎 번호가 최소공배수입니다.")
+            st.success("✅ 정답입니다!")
         else:
             st.error("❌ 틀렸습니다. 다시 생각해보세요.")
             st.warning("힌트: 각 개구리가 밟은 연잎 번호를 차례대로 적어보면 공통으로 나오는 첫 번째 숫자가 있습니다.")
@@ -249,10 +249,10 @@ if show_summary:
             <h3 style='margin:0 0 12px 0;color:#3399ff;'>정리하기</h3>
             <ul style='margin:0 0 10px 0;padding-left:18px;'>
                 <li style='margin-bottom:6px;'>
-                    <span style='color:#0077cc;font-weight:bold;'>공배수</span>란 두 수 모두로 나누어 떨어지는 수입니다.
+                    <span style='color:#0077cc;font-weight:bold;'>공배수</span>는 두 수의 <strong>공통인 배수</strong>를 말합니다.
                 </li>
                 <li style='margin-bottom:6px;'>
-                    <span style='color:#0077cc;font-weight:bold;'>최소공배수</span>란 두 수의 공배수 중 가장 작은 수입니다.
+                    두 수의 <span style='color:#0077cc;font-weight:bold;'>공배수</span> 중에서 가장 작은 수를 <span style='color:#0077cc;font-weight:bold;'>최소공배수</span>라고 합니다.
                 </li>
             </ul>
             <div style='background:#fffbe6;padding:10px 12px;border-radius:6px;margin-bottom:8px;'>
